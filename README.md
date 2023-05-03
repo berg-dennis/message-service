@@ -55,9 +55,16 @@ This helped me setup a fair amount of boilerplate code to speed up the process.
 - User methods
 
 To create a user use the following `curl`:
+
 `curl -X POST -H "Content-Type: application/json" -d '{"name": "user", "email": "user@email.com"}' http://localhost:3000/api/users/add`
-Delete a user by email: `curl -X DELETE http://localhost:3000/api/users/delete/user@email.com`
-Delete a user by id: `curl -X DELETE http://localhost:3000/api/users/delete/someId`
+
+Delete a user by email:
+
+`curl -X DELETE http://localhost:3000/api/users/delete/user@email.com`
+
+Delete a user by id: 
+
+`curl -X DELETE http://localhost:3000/api/users/delete/someId`
 
 Get all users: `curl -X GET http://localhost:3000/api/users/all`
 
