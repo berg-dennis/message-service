@@ -17,14 +17,14 @@ userRouter.get(Paths.Users.Get, UserRoutes.getAll);
 userRouter.post(
   Paths.Users.Add,
   validate(['email', 'string', 'body'], ['name', 'string', 'body']),
-  UserRoutes.add
+  UserRoutes.add,
 );
 
 // Delete one user
 userRouter.delete(
   Paths.Users.Delete,
   validate(['id', 'string', 'params']),
-  UserRoutes.delete
+  UserRoutes.delete,
 );
 
 // Add UserRouter
@@ -39,15 +39,15 @@ messageRouter.post(
   validate(
     ['sender', 'string', 'body'],
     ['recipient', 'string', 'body'],
-    ['content', 'string', 'body']
+    ['content', 'string', 'body'],
   ),
-  MessageRoutes.add
+  MessageRoutes.add,
 );
 
 messageRouter.get(
   Paths.Messages.Latest,
   validate(['email', 'string', 'body']),
-  MessageRoutes.fetchNewMessages
+  MessageRoutes.fetchNewMessages,
 );
 
 messageRouter.get(
@@ -55,9 +55,9 @@ messageRouter.get(
   validate(
     ['email', 'string', 'body'],
     ['startIndex', 'number', 'body'],
-    ['pageSize', 'number', 'body']
+    ['pageSize', 'number', 'body'],
   ),
-  MessageRoutes.fetchOrderedPaginatedMessages
+  MessageRoutes.fetchOrderedPaginatedMessages,
 );
 
 messageRouter.delete(Paths.Messages.Delete, MessageRoutes.deleteMessages);

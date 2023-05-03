@@ -16,12 +16,12 @@ async function add(req: IReq<IMessageReq>, res: IRes) {
 
 async function fetchOrderedPaginatedMessages(
   req: IReq<{ email: string; startIndex: number; pageSize: number }>,
-  res: IRes
+  res: IRes,
 ) {
   const messages = await MessageService.fetchOrderedPaginatedMessages(
     req.body.email,
     req.body.startIndex,
-    req.body.pageSize
+    req.body.pageSize,
   );
   return res.status(HttpStatusCodes.OK).json({ messages });
 }
@@ -34,7 +34,7 @@ async function fetchNewMessages(req: IReq<{ email: string }>, res: IRes) {
 // Delete one or more messages
 async function deleteMessages(
   req: IReq<{ ids: string[] | string }>,
-  res: IRes
+  res: IRes,
 ) {
   await MessageService.deleteMessages(req.body.ids);
   return res.status(HttpStatusCodes.OK).end();

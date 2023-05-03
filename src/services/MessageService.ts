@@ -14,17 +14,17 @@ export const submitMessage = async (messageReq: IMessageReq): Promise<void> => {
   if (messageReq.sender === messageReq.recipient) {
     throw new RouteError(
       HttpStatusCodes.BAD_REQUEST,
-      'Sender and receiver cannot be the same'
+      'Sender and receiver cannot be the same',
     );
   }
   const senderUser = await UserRepo.getByEmailIdentifier(messageReq.sender);
   const receiverUser = await UserRepo.getByEmailIdentifier(
-    messageReq.recipient
+    messageReq.recipient,
   );
   if (!senderUser || !receiverUser) {
     throw new RouteError(
       HttpStatusCodes.BAD_REQUEST,
-      'Sender or receiver does not exist'
+      'Sender or receiver does not exist',
     );
   }
   const message: IMessage = {
@@ -43,14 +43,14 @@ async function fetchNewMessages(email: string): Promise<IMessage[]> {
   if (!userExists) {
     throw new RouteError(
       HttpStatusCodes.BAD_REQUEST,
-      `User with email ${email} does not exist`
+      `User with email ${email} does not exist`,
     );
   }
   const newMessages = await MessageRepo.fetchNewMessages(email);
   if (newMessages.length === 0) {
     throw new RouteError(
       HttpStatusCodes.NOT_FOUND,
-      `No new messages for user with email ${email}`
+      `No new messages for user with email ${email}`,
     );
   }
   return newMessages;
@@ -59,13 +59,13 @@ async function fetchNewMessages(email: string): Promise<IMessage[]> {
 function fetchOrderedPaginatedMessages(
   email: string,
   startIndex: number,
-  size: number
+  size: number,
 ): Promise<IMessage[]> {
   const userExists = UserRepo.getByEmailIdentifier(email);
   if (!userExists) {
     throw new RouteError(
       HttpStatusCodes.BAD_REQUEST,
-      `User with email ${email} does not exist`
+      `User with email ${email} does not exist`,
     );
   }
   return MessageRepo.fetchOrderedPaginatedMessages(email, startIndex, size);

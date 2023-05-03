@@ -47,7 +47,7 @@ app.use(
     _: Request,
     res: Response,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    next: NextFunction
+    next: NextFunction,
   ) => {
     if (EnvVars.NodeEnv !== NodeEnvs.Test) {
       logger.err(err, true);
@@ -57,7 +57,7 @@ app.use(
       status = err.status;
     }
     return res.status(status).json({ error: err.message });
-  }
+  },
 );
 
 // **** Export default **** //

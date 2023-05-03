@@ -38,7 +38,7 @@ async function fetchNewMessages(email: string): Promise<IMessage[]> {
 async function fetchOrderedPaginatedMessages(
   email: string,
   startIndex: number,
-  pageSize: number
+  pageSize: number,
 ): Promise<IMessage[]> {
   const db = await orm.openDb();
   const messagesToSort: IMessage[] = [];
@@ -50,17 +50,17 @@ async function fetchOrderedPaginatedMessages(
   const sortedAndPaginatedMessages = sortAndPaginateArray(
     messagesToSort,
     startIndex,
-    pageSize
+    pageSize,
   );
   return sortedAndPaginatedMessages;
 }
 function sortAndPaginateArray(
   arr: IMessage[],
   startIndex: number,
-  limit: number
+  limit: number,
 ): IMessage[] {
   const sortedArr = arr.sort(
-    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
   );
   return sortedArr.slice(startIndex, startIndex + limit);
 }

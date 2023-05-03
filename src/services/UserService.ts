@@ -15,7 +15,7 @@ async function addOne(user: Omit<IUser, 'id'>): Promise<void> {
   if (userExists) {
     throw new RouteError(
       HttpStatusCodes.CONFLICT,
-      `User with email ${user.email} already exists`
+      `User with email ${user.email} already exists`,
     );
   }
   const newUser: IUser = {
