@@ -56,10 +56,10 @@ async function fetchNewMessages(email: string): Promise<IMessage[]> {
   return newMessages;
 }
 
-function fetchMessagesByPage(
+function fetchOrderedPaginatedMessages(
   email: string,
-  size: number,
-  page: number
+  startIndex: number,
+  size: number
 ): Promise<IMessage[]> {
   const userExists = UserRepo.getByEmailIdentifier(email);
   if (!userExists) {
@@ -68,7 +68,7 @@ function fetchMessagesByPage(
       `User with email ${email} does not exist`
     );
   }
-  return MessageRepo.fetchMessageByPage(email, size, page);
+  return MessageRepo.fetchOrderedPaginatedMessages(email, startIndex, size);
 }
 
 async function deleteMessage(id: string): Promise<void> {
@@ -96,5 +96,5 @@ export default {
   submitMessage,
   deleteMessages,
   fetchNewMessages,
-  fetchMessagesByPage,
+  fetchOrderedPaginatedMessages,
 } as const;

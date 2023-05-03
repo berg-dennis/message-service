@@ -18,7 +18,7 @@ const Paths = {
     Get: '/all',
     Add: '/submit',
     Latest: '/latest/',
-    FetchByPage: '/page',
+    FetchOrdered: '/ordered/byindex',
     Delete: '/delete/',
     DeleteOne: '/delete/:id',
   },

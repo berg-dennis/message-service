@@ -1,5 +1,4 @@
 import jsonfile from 'jsonfile';
-
 import { IUser } from '@src/models/User';
 import { IMessage } from '@src/models/Message';
 

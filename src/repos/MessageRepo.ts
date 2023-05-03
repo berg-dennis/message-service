@@ -34,10 +34,10 @@ async function fetchNewMessages(email: string): Promise<IMessage[]> {
   return newMessages;
 }
 
-async function fetchMessageByPage(
+async function fetchOrderedPaginatedMessages(
   email: string,
-  pageSize: number,
-  page: number
+  startIndex: number,
+  pageSize: number
 ): Promise<IMessage[]> {
   const db = await orm.openDb();
   const messagesToSort: IMessage[] = [];
@@ -46,12 +46,22 @@ async function fetchMessageByPage(
       messagesToSort.push(message);
     }
   }
-  const sortedMessages = messagesToSort.sort((a, b) => {
-    return b.timestamp.getTime() - a.timestamp.getTime();
-  });
-  const start = pageSize * page;
-  const end = pageSize * (page + 1);
-  return sortedMessages.slice(start, end);
+  const sortedAndPaginatedMessages = sortAndPaginateArray(
+    messagesToSort,
+    startIndex,
+    pageSize
+  );
+  return sortedAndPaginatedMessages;
+}
+function sortAndPaginateArray(
+  arr: IMessage[],
+  startIndex: number,
+  limit: number
+): IMessage[] {
+  const sortedArr = arr.sort(
+    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  );
+  return sortedArr.slice(startIndex, startIndex + limit);
 }
 
 async function persists(id: string): Promise<boolean> {
@@ -70,5 +80,5 @@ export default {
   delete: delete_,
   persists,
   fetchNewMessages,
-  fetchMessageByPage,
+  fetchOrderedPaginatedMessages,
 } as const;

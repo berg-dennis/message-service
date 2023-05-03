@@ -51,8 +51,13 @@ messageRouter.get(
 );
 
 messageRouter.get(
-  Paths.Messages.FetchByPage,
-  MessageRoutes.fetchMessagesByPage
+  Paths.Messages.FetchOrdered,
+  validate(
+    ['email', 'string', 'body'],
+    ['startIndex', 'number', 'body'],
+    ['pageSize', 'number', 'body']
+  ),
+  MessageRoutes.fetchOrderedPaginatedMessages
 );
 
 messageRouter.delete(Paths.Messages.Delete, MessageRoutes.deleteMessages);

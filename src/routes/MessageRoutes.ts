@@ -14,14 +14,14 @@ async function add(req: IReq<IMessageReq>, res: IRes) {
   return res.status(HttpStatusCodes.CREATED).end();
 }
 
-async function fetchMessagesByPage(
-  req: IReq<{ email: string; size: number; offset: number }>,
+async function fetchOrderedPaginatedMessages(
+  req: IReq<{ email: string; startIndex: number; pageSize: number }>,
   res: IRes
 ) {
-  const messages = await MessageService.fetchMessagesByPage(
+  const messages = await MessageService.fetchOrderedPaginatedMessages(
     req.body.email,
-    req.body.size,
-    req.body.offset
+    req.body.startIndex,
+    req.body.pageSize
   );
   return res.status(HttpStatusCodes.OK).json({ messages });
 }
@@ -43,6 +43,6 @@ export default {
   getAll,
   add,
   fetchNewMessages,
-  fetchMessagesByPage,
+  fetchOrderedPaginatedMessages,
   deleteMessages,
 } as const;
