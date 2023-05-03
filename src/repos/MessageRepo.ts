@@ -25,10 +25,11 @@ async function delete_(id: string): Promise<void> {
 async function fetchNewMessages(email: string): Promise<IMessage[]> {
   const db = await orm.openDb();
   const newMessages: IMessage[] = [];
-  for (const message of db.messages) {
-    if (message.recipient.email === email && !message.seen) {
-      message.seen = true;
-      newMessages.push(message);
+  for (let i = 0; i < db.messages.length; i++) {
+    if (db.messages[i].recipient.email === email && !db.messages[i].seen) {
+      newMessages.push(db.messages[i]);
+      db.messages[i].seen = true;
+      orm.saveDb(db);
     }
   }
   return newMessages;
@@ -59,7 +60,7 @@ function sortAndPaginateArray(
   limit: number
 ): IMessage[] {
   const sortedArr = arr.sort(
-    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
   );
   return sortedArr.slice(startIndex, startIndex + limit);
 }
