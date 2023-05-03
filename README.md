@@ -55,22 +55,38 @@ This helped me setup a fair amount of boilerplate code to speed up the process.
 - User methods
 
 To create a user use the following `curl`:
+
 `curl -X POST -H "Content-Type: application/json" -d '{"name": "user", "email": "user@email.com"}' http://localhost:3000/api/users/add`
-Delete a user by email: `curl -X DELETE http://localhost:3000/api/users/delete/user@email.com`
-Delete a user by id: `curl -X DELETE http://localhost:3000/api/users/delete/someId`
+
+Delete a user by email:
+
+`curl -X DELETE http://localhost:3000/api/users/delete/user@email.com`
+
+Delete a user by id:
+
+`curl -X DELETE http://localhost:3000/api/users/delete/someId`
 
 Get all users: `curl -X GET http://localhost:3000/api/users/all`
 
 - Message methods
-  Get all messages: `curl -X GET http://localhost:3000/api/messages/all`
+- Get all messages: `curl -X GET http://localhost:3000/api/messages/all`
 
   Submit a new message:
+
   `curl -X POST -H "Content-Type: application/json" -d '{"sender": "user1@user1.com","recipient": "user2@user2.com","content": "Ping!"}' http://localhost:3000/api/messages/submit`
+
   Get the latest (unread) messages:
+
   `curl -X GET -H "Content-Type: application/json" -d '{"email": "user1@user1.com"}' http://localhost:3000/api/messages/latest/`
+
   Get all messages ordered by time with a startIndex and stopIndex.
+
   `curl -X GET -H "Content-Type: application/json" -d '{"email": "user1@user1.com", "startIndex": 1, "pageSize": 1}' http://localhost:3000/api/messages/ordered/byindex`
+
   Delete a specific message:
+
   `curl -X DELETE -H "Content-Type: application/json" -d '{"ids":"472080b2-9a6f-41cc-8ffc-38aa1a7b0d4b"}' http://localhost:3000/api/messages/delete`
+
   Delete multiple messages:
+
   `curl -X DELETE -H "Content-Type: application/json" -d '{"ids":["someid1", "someid2", "someId3"]}'`
